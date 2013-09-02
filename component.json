@@ -7,13 +7,15 @@
     "chrome", "tabs"
   ],
   "dependencies": {
-    "shallker-wang/eventy": "*"
+    "shallker-wang/eventy": "*",
+    "shallker/object-data": "*"
   },
   "development": {
   },
   "license": "MIT",
   "main": "index.js",
   "scripts": [
-    "index.js"
+    "index.js",
+    "script/tab.js"
   ]
 }

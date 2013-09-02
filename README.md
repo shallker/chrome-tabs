@@ -18,6 +18,10 @@ tabs.on('created', function (tab) {
   tab.on('clicked', function () {})
   tab.set('icon.path', 'big.icon')
   tab.get('icon.path')
+  tab.script.insert('file.js')
+  tab.script.execute('js code')
+  tab.style.insert('file.css')
+  tab.style.execute('css code')
 })
 ```
 

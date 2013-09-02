@@ -16,6 +16,8 @@ tabs.on('created', function (tab) {
   tab.on('updated', function () {})
   tab.on('removed', function () {})
   tab.on('clicked', function () {})
+  tab.set('icon.path', 'big.icon')
+  tab.get('icon.path')
 })
 ```
 

@@ -13,6 +13,7 @@ module.exports = function Tab(ctab) {
   var tab = function () {
     this.__proto__ = ctab;
     this.id = ctab.id;
+    this.removed = false;
     setting.icon.path.on('update', onIconPathUpdate);
     listenChrome();
     return this;
@@ -97,6 +98,7 @@ module.exports = function Tab(ctab) {
 
   function onRemoved(tid, info) {
     if (tid !== tab.id) return;
+    tab.removed = true;
     unlistenChrome();
     tab.trigger('removed', info);
   }

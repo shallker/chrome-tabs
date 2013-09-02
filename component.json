@@ -1,0 +1,19 @@
+{
+  "name": "chrome-tabs",
+  "repo": "shallker/chrome-tabs",
+  "description": "Play with chrome.tabs in a enjoyable way.",
+  "version": "0.0.1",
+  "keywords": [
+    "chrome", "tabs"
+  ],
+  "dependencies": {
+    "shallker-wang/eventy": "*"
+  },
+  "development": {
+  },
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js",
+  ]
+}

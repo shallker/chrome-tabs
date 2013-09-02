@@ -53,7 +53,12 @@ module.exports = function Tab(ctab) {
 
   function onUpdated(tid, info) {
     if (tid !== tab.id) return;
-    tab.trigger('updated', info);
+    chrome.tabs.get(tid, function (tb) {
+      tab.__proto__ = tb;
+      tab.id = tb.id;
+      tab.url = tb.url;
+      tab.trigger('updated', info);
+    })
   }
 
   function onMoved(tid, info) {
@@ -90,10 +95,12 @@ module.exports = function Tab(ctab) {
   }
 
   function onReplaced(newId, oldId) {
+    console.log('onReplaced')
     if (oldId !== tab.id) return;
     chrome.tabs.get(newId, function (tb) {
       tab.__proto__ = tb;
-      tab.id = newId;
+      tab.id = tb.id;
+      tab.url = tb.url;
       tab.trigger('replaced', newId);
     })
   }
@@ -127,6 +134,42 @@ module.exports = function Tab(ctab) {
 
   tab.get = function (chain, value) {
     return getter(setting, chain.split('.'), value);
+  }
+
+  tab.script = function () {
+    return this;
+  }.call(eventy({}));
+
+  tab.script.insert = function (file, callback) {
+    chrome.tabs.executeScript(tab.id, {file: file}, function (result) {
+      tab.script.trigger('insert', file);
+      callback && callback(result);
+    });
+  }
+
+  tab.script.execute = function (code, callback) {
+    chrome.tabs.executeScript(tab.id, {code: code}, function (result) {
+      tab.script.trigger('execute', code);
+      callback && callback(result);
+    });
+  }
+
+  tab.style = function () {
+    return this;
+  }.call(eventy({}));
+
+  tab.style.insert = function (file, callback) {
+    chrome.tabs.insertCSS(tab.id, {file: file}, function (result) {
+      tab.style.trigger('insert', file);
+      callback && callback(result);
+    })
+  }
+
+  tab.style.execute = function (code, callback) {
+    chrome.tabs.insertCSS(tab.id, {code: code}, function (result) {
+      tab.style.trigger('execute', code);
+      callback && callback(result);
+    })
   }
 
   return tab;

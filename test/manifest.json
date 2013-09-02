@@ -1,0 +1,14 @@
+{
+  "name": "chrom-tabs test",
+  "description": "chrom-tabs test.",
+  "version": "1.0",
+  "manifest_version": 2,
+  "permissions": [
+    "tabs",
+    "<all_urls>"
+  ],
+  "background": {"page": "background.html"},
+  "browser_action": {
+    "default_title": "chrome-tabs"
+  }
+}

@@ -28,6 +28,7 @@ module.exports = function Tab(ctab) {
     chrome.tabs.onRemoved.addListener(onRemoved);
     chrome.tabs.onReplaced.addListener(onReplaced);
     chrome.browserAction.onClicked.addListener(onClicked);
+    chrome.runtime.onConnect.addListener(onConnect);
   }
 
   function unlistenChrome() {
@@ -40,10 +41,16 @@ module.exports = function Tab(ctab) {
     chrome.tabs.onRemoved.removeListener(onRemoved);
     chrome.tabs.onReplaced.removeListener(onReplaced);
     chrome.browserAction.onClicked.removeListener(onClicked);
+    chrome.runtime.onConnect.removeListener(onConnect);
   }
 
   function onIconPathUpdate(path) {
     chrome.browserAction.setIcon({path: path, tabId: tab.id});
+  }
+
+  function onConnect(port) {
+    if (port.sender.tab.id !== tab.id) return;
+    tab.trigger('connect', port);
   }
 
   function onClicked(tb) {

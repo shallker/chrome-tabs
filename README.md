@@ -13,9 +13,14 @@
 ```
 var tabs = require('chrome-tabs');
 tabs.on('created', function (tab) {
+  tab.id
+  tab.url
+  tab.removed
+
   tab.on('updated', function () {})
   tab.on('removed', function () {})
   tab.on('clicked', function () {})
+  tab.on('connect', function (port) {})
 
   tab.set('icon.path', 'big.icon')
   tab.get('icon.path')
